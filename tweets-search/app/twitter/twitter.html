@@ -1,0 +1,61 @@
+<div class="container mt-5" ng-controller="TwitterCtrl">
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="Hashtag">Hashtag</label>
+            <input type="text" class="form-control" id="Hashtag" placeholder="Hashtag" ng-model="hashtag">
+        </div>
+        <div class="form-group col">
+            <label for="from">From</label>
+            <input type="date" id="from" min="{{::getLast7DaysDate()}}" class="form-control" ng-model="from">
+        </div>
+        <div class="form-group col">
+            <label for="from">Until</label>
+            <input type="date" id="until" min="{{::getLast7DaysDate()}}" class="form-control" ng-model="until">
+        </div>
+        <div class="form-group col">
+            <label for="Languages_list">Language</label>
+            <select id="Languages_list" class="form-control" ng-model="selected_language" ng-options="language.name for language in languages">
+            </select>
+        </div>
+        <div id="search_btn" class="form-group col-1">
+            <button class="btn btn-primary" ng-click="search()" ng-disabled="!hashtag || !from || !until || !selected_language">Search</button>
+        </div>
+    </div>
+    <div class="row" ng-show="tweets">
+        <div class="col">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">User</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Tweet body</th>
+                        <th scope="col">Number of retweets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tweet in tweets" ng-click="onTweetClick(tweet)" ng-class="{'bg-warning':selected_tweet===tweet}">
+                        <td>{{tweet.user_name}}</th>
+                        <td>{{tweet.created_at | date:'short'}}</th>
+                        <td>{{tweet.text}}</th>
+                        <td>{{tweet.retweet_count}}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4" ng-if="selected_tweet">
+            <div class="card">
+                <div class="row" style="padding-left: 30px; padding-top: 15px">
+                  <img ng-src="{{selected_tweet.profile_image_url}}" width="48" height="48">
+                  <div class="col font-weight-bold">{{selected_tweet.user_name}}</div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text lead">{{selected_tweet.text}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-primary">{{selected_tweet.created_at | date:'short'}}</li>
+                    <li class="list-group-item"><span class="text-secondary">retweets: </span>{{selected_tweet.retweet_count}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

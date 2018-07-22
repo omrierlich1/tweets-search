@@ -1,0 +1,23 @@
+{
+  "name": "tweets-search",
+  "private": true,
+  "version": "0.0.0",
+  "description": "A starter project for AngularJS",
+  "license": "MIT",
+  "dependencies": {
+    "twitter": "latest",
+    "iso-639-1": "latest"
+  },
+  "devDependencies": {
+    "bower": "^1.7.7",
+    "express": "latest",
+    "body-parser": "latest"
+  },
+  "scripts": {
+    "postinstall": "bower install",
+    "update-deps": "npm update",
+    "postupdate-deps": "bower update",
+    "prestart": "npm install",
+    "start": "node ./server/server.js"
+  }
+}
